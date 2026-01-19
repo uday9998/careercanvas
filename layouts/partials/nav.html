@@ -34,6 +34,20 @@
             </a>
           {{ end }}
         {{ end }}
+
+        <!-- Social icons -->
+        <div class="flex space-x-4 pl-4 border-l border-text-primary/20 dark:border-text-primary/20">
+          {{ if .Site.Params.linkedin_url }}
+          <a href="{{ .Site.Params.linkedin_url }}" target="_blank" class="nav-link" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in text-lg"></i>
+          </a>
+          {{ end }}
+          {{ if .Site.Params.github_url }}
+          <a href="{{ .Site.Params.github_url }}" target="_blank" class="nav-link" aria-label="GitHub">
+            <i class="fab fa-github text-lg"></i>
+          </a>
+          {{ end }}
+        </div>
       </div>
 
       <!-- Hamburger -->
