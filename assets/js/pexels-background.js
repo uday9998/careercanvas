@@ -107,31 +107,9 @@ class PexelsBackground {
         console.log('useDefaultImage called');
         console.log('Default image path:', this.defaultImage);
         
-        try {
-            const imageExists = await this.checkImageExists(this.defaultImage);
-            
-            if (imageExists) {
-                console.log('✅ Default image exists and loaded successfully');
-                this.currentImage = this.defaultImage;
-                this.applyBackgroundImage(true);
-            } else {
-                console.warn('❌ Default image not found at:', this.defaultImage);
-                console.log('Falling back to gradient');
-                this.useFallbackBackground();
-            }
-        } catch (error) {
-            console.error('Error in useDefaultImage:', error);
-            this.useFallbackBackground();
-        }
-    }
-
-    checkImageExists(imageUrl) {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = imageUrl;
-        });
+        // Set current image and apply - let applyBackgroundImage handle loading and error handling
+        this.currentImage = this.defaultImage;
+        this.applyBackgroundImage(true);
     }
 
     async loadRandomBackground() {
