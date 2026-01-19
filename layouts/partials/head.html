@@ -35,6 +35,10 @@
 <!-- 🔧 Favicon -->
 <link rel="icon" href="/favicon.ico" />
 
+<!-- ⚡ Preload hero background image for instant display -->
+{{ $defaultHeroImage := .Site.Params.default_hero_image | default "/images/hero-default-bg.jpg" }}
+<link rel="preload" as="image" href="{{ $defaultHeroImage }}" />
+
 <!-- Fonts & Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />

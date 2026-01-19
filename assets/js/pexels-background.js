@@ -61,12 +61,12 @@ class PexelsBackground {
                     console.log('No Pexels API key configured, using fallback gradient');
                     this.useFallbackBackground();
                 } else {
-                    setTimeout(checkConfig, 100);
+                    setTimeout(checkConfig, 50); // Reduced from 100ms
                 }
             }
         };
         
-        setTimeout(checkConfig, 100);
+        checkConfig(); // Call immediately instead of with setTimeout
     }
 
     hideGradientBackground() {
@@ -329,11 +329,9 @@ class PexelsBackground {
             console.log('Hero section classes:', heroSection.className);
             
             // Fade in
-            setTimeout(() => {
-                bgContainer.style.opacity = '1';
-                overlay.style.opacity = '1';
-                console.log('Background image faded in');
-            }, 50);
+            bgContainer.style.opacity = '1';
+            overlay.style.opacity = '1';
+            console.log('Background image faded in');
         };
         
         img.onerror = () => {
