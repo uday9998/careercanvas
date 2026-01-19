@@ -40,6 +40,14 @@ class PexelsBackground {
 
     waitForConfig() {
         const checkConfig = () => {
+            // Priority 1: If default image is specified, use it immediately without API check
+            if (this.defaultImage && this.defaultImage !== '') {
+                console.log('Default image specified:', this.defaultImage, '- using it directly, skipping API');
+                this.useDefaultImage();
+                return;
+            }
+            
+            // Priority 2: Try to use Pexels API if no default image
             if (window.PEXELS_API_KEY) {
                 this.apiKey = window.PEXELS_API_KEY;
                 console.log('Pexels API key found');
@@ -50,8 +58,8 @@ class PexelsBackground {
                 }
                 
                 if (Date.now() - this.configCheckStartTime > 2000) {
-                    console.log('No Pexels API key configured, using default image');
-                    this.useDefaultImage();
+                    console.log('No Pexels API key configured, using fallback gradient');
+                    this.useFallbackBackground();
                 } else {
                     setTimeout(checkConfig, 100);
                 }
