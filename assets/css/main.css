@@ -49,7 +49,9 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    /* REMOVED: background-attachment: fixed; - Causes major performance issues on scroll */
+    will-change: background-position;
+    contain: layout style;
   }
 
   /* Ensure animations stay above background */
@@ -282,14 +284,18 @@
 
 
   /* Button hover - no movement, just highlight */
+  .button-hover {
+    will-change: box-shadow, opacity;
+  }
+  
   .button-hover:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    filter: brightness(1.1);
+    opacity: 0.9;
   }
 
   .dark .button-hover:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-    filter: brightness(1.15);
+    opacity: 0.85;
   }
 
   /* Quick fact hover - natural rounded lighting effect */

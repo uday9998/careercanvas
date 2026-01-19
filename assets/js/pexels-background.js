@@ -173,7 +173,7 @@ class PexelsBackground {
         
         console.log('Applying background - iOS:', isIOSDevice, 'Mobile:', isMobile);
 
-        // Create background container
+        // Create background container with performance optimizations
         const bgContainer = document.createElement('div');
         bgContainer.className = 'pexels-bg-container';
         bgContainer.style.cssText = `
@@ -188,6 +188,10 @@ class PexelsBackground {
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
             overflow: hidden;
+            contain: strict;
+            will-change: opacity;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         `;
 
         // Ensure hero section has proper positioning
@@ -258,6 +262,8 @@ class PexelsBackground {
                 const bgImage = document.createElement('img');
                 bgImage.src = this.currentImage;
                 bgImage.alt = 'Hero background';
+                bgImage.loading = 'eager';
+                bgImage.decoding = 'async';
                 bgImage.style.cssText = `
                     position: absolute !important;
                     top: 0 !important;
@@ -271,27 +277,30 @@ class PexelsBackground {
                     display: block !important;
                     margin: 0 !important;
                     padding: 0 !important;
+                    backface-visibility: hidden !important;
+                    -webkit-backface-visibility: hidden !important;
+                    will-change: opacity;
                 `;
                 
                 // iOS performance optimizations
                 if (isIOSDevice) {
                     bgImage.style.transform = 'translateZ(0)';
                     bgImage.style.webkitTransform = 'translateZ(0)';
-                    bgImage.style.webkitBackfaceVisibility = 'hidden';
-                    bgImage.style.backfaceVisibility = 'hidden';
+                    bgImage.style.webkitAcceleratedCompositing = 'true';
                     console.log('Applied iOS optimizations');
                 }
                 
                 bgContainer.appendChild(bgImage);
                 console.log('Image element appended to container');
             } else {
-                // Desktop: use CSS background-image
+                // Desktop: use CSS background-image with performance optimizations
                 console.log('Using CSS background-image for desktop');
                 bgContainer.style.backgroundImage = `url(${this.currentImage})`;
                 bgContainer.style.backgroundSize = 'cover';
                 bgContainer.style.backgroundPosition = 'center';
                 bgContainer.style.backgroundRepeat = 'no-repeat';
-                bgContainer.style.backgroundAttachment = 'fixed';
+                bgContainer.style.backgroundAttachment = 'scroll'; // NOT 'fixed' - scroll is faster
+                bgContainer.style.willChange = 'opacity';
             }
             
             // Remove gradient-bg class and add pexels-bg class
