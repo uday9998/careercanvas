@@ -93,12 +93,12 @@
     <!-- Social icons -->
     <div class="flex space-x-4 pt-6">
       {{ if .Site.Params.linkedin_url }}
-      <a href="{{ .Site.Params.linkedin_url }}" target="_blank">
+      <a href="{{ .Site.Params.linkedin_url }}" target="_blank" aria-label="LinkedIn">
         <i class="fab fa-linkedin-in text-xl"></i>
       </a>
       {{ end }}
       {{ if .Site.Params.github_url }}
-      <a href="{{ .Site.Params.github_url }}" target="_blank">
+      <a href="{{ .Site.Params.github_url }}" target="_blank" aria-label="GitHub">
         <i class="fab fa-github text-xl"></i>
       </a>
       {{ end }}
