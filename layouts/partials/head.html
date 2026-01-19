@@ -35,12 +35,16 @@
 <!-- 🔧 Favicon -->
 <link rel="icon" href="/favicon.ico" />
 
-<!-- ⚡ Preload hero background image for instant display -->
+<!-- ⚡ Preload hero background image with high priority for instant LCP -->
 {{ $defaultHeroImage := .Site.Params.default_hero_image | default "/images/hero-default-bg.jpg" }}
-<link rel="preload" as="image" href="{{ $defaultHeroImage }}" />
+<link rel="preload" as="image" href="{{ $defaultHeroImage }}" fetchpriority="high" />
 
-<!-- Fonts & Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+<!-- 🚀 Critical: Preload fonts for faster FCP -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Nunito+Sans:wght@400;600&display=swap" as="style" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Nunito+Sans:wght@400;600&display=swap" />
+
+<!-- Icons - Load asynchronously (not critical for initial paint) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'" />
 
 <!-- GSAP Animation Library - Loaded dynamically from node_modules or CDN fallback -->

@@ -41,6 +41,7 @@ class PexelsBackground {
     waitForConfig() {
         const checkConfig = () => {
             // Priority 1: If default image is specified, use it immediately without API check
+            // This must happen synchronously to unblock render
             if (this.defaultImage && this.defaultImage !== '') {
                 console.log('Default image specified:', this.defaultImage, '- using it directly, skipping API');
                 this.useDefaultImage();
@@ -51,7 +52,12 @@ class PexelsBackground {
             if (window.PEXELS_API_KEY) {
                 this.apiKey = window.PEXELS_API_KEY;
                 console.log('Pexels API key found');
-                this.init();
+                // Load API images asynchronously to not block render
+                if (window.requestIdleCallback) {
+                    requestIdleCallback(() => this.init());
+                } else {
+                    setTimeout(() => this.init(), 100);
+                }
             } else {
                 if (!this.configCheckStartTime) {
                     this.configCheckStartTime = Date.now();

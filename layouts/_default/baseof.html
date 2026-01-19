@@ -57,11 +57,14 @@
     {{ partial "pexels-config.html" . }}
     {{ partial "color-config.html" . }}
 
-    <script src="{{ $scripts.RelPermalink }}"></script>
-    <script src="{{ $colors.RelPermalink }}"></script>
-    <script src="{{ $gsap.RelPermalink }}"></script>
-    <script src="{{ $pexels.RelPermalink }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fslightbox/index.js"></script>
+    <!-- 🎯 Critical: Load pexels config and color config early, then pexels background script (MUST be in this order for LCP) -->
+    <script src="{{ $pexels.RelPermalink }}" defer></script>
+    
+    <!-- ⏱️ Defer non-critical scripts that don't block FCP/LCP -->
+    <script src="{{ $scripts.RelPermalink }}" defer></script>
+    <script src="{{ $colors.RelPermalink }}" defer></script>
+    <script src="{{ $gsap.RelPermalink }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/fslightbox/index.js" defer></script>
 
     <!-- Reveal page after load -->
     <script>
